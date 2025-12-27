@@ -17,14 +17,14 @@ function ArrayNumeri() {
     let numeri=[];
     let rand=0;
 
-    for (let i=1; i<=90; i++) {
+    for (let i=0; i<90; i++) {
         rand=Math.floor(Math.random()*90)+1;
-        for (let j=0; j<numeri.length; j++) {
-            if (rand==numeri[l]) {
-                rand=parseInt(Math.floor(Math.random()*90)+1);
-            }
-            else {}
+        for (let j=0; j<90; j++)
+        while (rand==numeri[j]) {
+            rand=Math.floor(Math.random()*90)+1;
+            j=-1;
         }
+        numeri[i]=rand;
     }
     return numeri;
 }
@@ -57,6 +57,12 @@ function CreaInput(output) {
     input.max="90";
     input.placeholder="Es.: 45";
     output.appendChild(input);
+
+    let text;
+    for (let i=0; i<2; i++) {
+        text=document.createElement("br");
+        output.appendChild(text);
+    }
 
     let button=document.createElement("button");
     button.textContent="Invia numero";
