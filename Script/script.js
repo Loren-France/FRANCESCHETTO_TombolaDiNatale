@@ -9,8 +9,9 @@ function Start() {
 
     CreaTabella(num, griglia);
 
-    CreaInput(output);
+    CreaInput(num, output);
 
+    document.getElementById("errore").innerHTML="";
 }
 
 function ArrayNumeri() {
@@ -41,15 +42,16 @@ function CreaTabella(num, griglia) {
         for (let j=0; j<10; j++) {
             tabella[i][j]=document.createElement("td");
             tabella[i][j].className="celle";
+            tabella[i][j].id=`cella-${c+1}`;
             tabella[i][j].textContent=`${num[c]}`;
-            griglia.appendChild(tabella[i][j]);
+            righe.appendChild(tabella[i][j]);
             c++;
         }
     }
     return tabella;
 }
 
-function CreaInput(output) {
+function CreaInput(num, output) {
     let input=document.createElement("input");
     input.type="number";
     input.id="numero";
@@ -58,16 +60,35 @@ function CreaInput(output) {
     input.placeholder="Es.: 45";
     output.appendChild(input);
 
-    let text;
-    for (let i=0; i<2; i++) {
-        text=document.createElement("br");
-        output.appendChild(text);
-    }
-
     let button=document.createElement("button");
     button.textContent="Invia numero";
-    button.onclick="ControlloNumerico()";
+    button.onclick= () => ControlloNumerico(num);
     output.appendChild(button);
 
     return;
+}
+
+function ControlloNumerico(num) {
+    let errore="";
+    let number = document.getElementById("numero").value;
+    let caratt;
+
+    if (isNaN(number)) {
+        errore="Errore,inserire un numero valido della tombola, per favore reinserire";
+        return errore;
+    }
+    else{
+        number=parseInt(number);
+
+        for (let i=0; i<90; i++) {
+            caratt = document.getElementById(`cella-${i+1}`);
+            if (number==num[i]) {
+                caratt.style.backgroundColor="black";
+                caratt.style.color="white";
+            }
+        }
+
+
+        return errore;
+    }
 }
