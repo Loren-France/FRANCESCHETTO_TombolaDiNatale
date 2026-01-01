@@ -1,3 +1,12 @@
+let stessaRiga=[];
+let flag;
+let ambo=false;
+let terna=false;
+let quaterna=false;
+let cinquina=false;
+let tombola=false;
+
+
 function Start() {
     let griglia=document.getElementById("tabella");
     griglia.innerHTML="";
@@ -73,11 +82,6 @@ function ControlloNumerico(tabella) {
     let feedback="";
     let number = document.getElementById("numero").value;
     let caratt;
-    let ambo=false;
-    let terna=false;
-    let quaterna=false;
-    let cinquina=false;
-    let tombola=false;
 
     if (isNaN(number)) {
         feedback="feedback,inserire un numero valido della tombola, per favore reinserire";
@@ -89,6 +93,7 @@ function ControlloNumerico(tabella) {
         for (let i=0; i<9; i++) {
 
         let count=0;
+        flag=-1;
 
         for (let j=0; j<10; j++) {
 
@@ -104,25 +109,37 @@ function ControlloNumerico(tabella) {
         }
         }
 
-    if (count == 2 && !ambo) {
+    for (let k=0; k<stessaRiga.length; k++) {
+        if (stessaRiga[k] == i) {
+            flag = i;
+            break;
+        }
+    }
+
+    if (count == 2 && !ambo && flag==-1) {
         ambo = true;
         document.getElementById("feedback").innerHTML = "AMBO!";
+        stessaRiga.push(i);
     }
-    else if (count == 3 && !terna) {
+    else if (count == 3 && !terna && flag==-1) {
         terna = true;
         document.getElementById("feedback").innerHTML = "TERNA!";
+        stessaRiga.push(i);
     }
-    else if (count == 4 && !quaterna) {
+    else if (count == 4 && !quaterna && flag==-1) {
         quaterna = true;
         document.getElementById("feedback").innerHTML = "QUATERNA!";
+        stessaRiga.push(i);
     }
-    else if (count == 5 && !cinquina) {
+    else if (count == 5 && !cinquina && flag==-1) {
         cinquina = true;
         document.getElementById("feedback").innerHTML = "CINQUINA!";
+        stessaRiga.push(i);
     }
-    else if (count == 10 && !tombola) {
+    else if (count == 10 && !tombola && flag==-1) {
         tombola = true;
         document.getElementById("feedback").innerHTML = "TOMBOLA!";
+        stessaRiga.push(i);
     }
     else {
     }
