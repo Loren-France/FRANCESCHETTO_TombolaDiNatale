@@ -8,7 +8,7 @@ let tombola=false;
 
 
 function Start() {
-    let griglia=document.getElementById("tabella");
+    let griglia=document.getElementById("content");
     griglia.innerHTML="";
 
     let output=document.getElementById("output");
@@ -43,20 +43,32 @@ function ArrayNumeri() {
 
 function CreaTabella(num, griglia, tabella) {
     let righe;
+    let tab;
+    let cartella;
     let c=0;
 
-    for (let i=0; i<9; i++) {
-        tabella[i]=[];
+    tab = document.createElement("table");
+    griglia.appendChild(tab);
+
+    for (let k=0; k<6; k++) {
+        tabella[k]=[];
+        if (k%3==0) {
+            cartella=document.createElement("td");
+            tab.appendChild(cartella);
+        }
+    for (let i=0; i<3; i++) {
+        tabella[k][i]=[];
         righe = document.createElement("tr");
-        griglia.appendChild(righe);
-        for (let j=0; j<10; j++) {
-            tabella[i][j]=document.createElement("td");
-            tabella[i][j].className="celle";
-            tabella[i][j].id=`cella-${i}-${j}`;
-            tabella[i][j].textContent=`${num[c]}`;
-            righe.appendChild(tabella[i][j]);
+        cartella.appendChild(righe);
+        for (let j=0; j<5; j++) {
+            tabella[k][i][j]=document.createElement("td");
+            tabella[k][i][j].className="celle";
+            tabella[k][i][j].id=`cella-${k}-${i}-${j}`;
+            tabella[k][i][j].textContent=`${num[c]}`;
+            righe.appendChild(tabella[k][i][j]);
             c++;
         }
+    }
     }
     return tabella;
 }
@@ -97,7 +109,7 @@ function ControlloNumerico(tabella) {
 
         for (let j=0; j<10; j++) {
 
-        caratt = document.getElementById(`cella-${i}-${j}`);
+        caratt = document.getElementById(`cella-${k}-${i}-${j}`);
 
         if (number == parseInt(caratt.textContent)) {
             caratt.style.backgroundColor = "red";
