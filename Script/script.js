@@ -6,6 +6,7 @@ let quaterna=false;
 let cinquina=false;
 let tombola=false;
 let fine=false;
+let punti=0;
 
 
 function Start() {
@@ -99,8 +100,8 @@ function ControlloNumerico(tabella) {
     let counter2=0;
 
     if (isNaN(number)) {
-        feedback="feedback,inserire un numero valido della tombola, per favore reinserire";
-        return feedback;
+        document.getElementById("feedback").innerHTML="Errore,inserire un numero valido della tombola, per favore reinserire";
+        return;
     }
     else{
         number=parseInt(number);
@@ -111,12 +112,15 @@ function ControlloNumerico(tabella) {
 
         for (let i=0; i<3; i++) {
 
+
+        let estratti=[];
         count=0;
         flag=-1;
 
         for (let j=0; j<5; j++) {
 
         caratt = document.getElementById(`cella-${k}-${i}-${j}`);
+
 
         if (number == parseInt(caratt.textContent)) {
             caratt.style.backgroundColor = "red";
@@ -127,6 +131,7 @@ function ControlloNumerico(tabella) {
         if (tabella[k][i][j].style.backgroundColor == "red") {
             count++;
             counter2++;
+            estratti.push(tabella[k][i][j]);
         }
         else{}
         }
@@ -140,29 +145,52 @@ function ControlloNumerico(tabella) {
 
     if (count == 2 && !ambo && flag==-1) {
         ambo = true;
-        document.getElementById("feedback").innerHTML = "AMBO!";
+        punti+=2;
+        document.getElementById("feedback").innerHTML = "AMBO!" + "<br>" + "Punti totali: " + punti;
         stessaRiga.push(`${k},${i}`);
+        for (let m=0; m<estratti.length; m++) {
+            estratti[m].style.backgroundColor="green";
+        }
     }
     else if (count == 3 && !terna && flag==-1) {
         terna = true;
-        document.getElementById("feedback").innerHTML = "TERNA!";
+        punti+=3;
+        document.getElementById("feedback").innerHTML = "TERNA!" + "<br>" + "Punti totali: " + punti;
         stessaRiga.push(`${k},${i}`);
+        for (let m=0; m<estratti.length; m++) {
+            estratti[m].style.backgroundColor="purple";
+        }
     }
     else if (count == 4 && !quaterna && flag==-1) {
         quaterna = true;
-        document.getElementById("feedback").innerHTML = "QUATERNA!";
+        punti+=4;
+        document.getElementById("feedback").innerHTML = "QUATERNA!" + "<br>" + "Punti totali: " + punti;
         stessaRiga.push(`${k},${i}`);
+        for (let m=0; m<estratti.length; m++) {
+            estratti[m].style.backgroundColor="yellow";
+        }
     }
     else if (count == 5 && !cinquina && flag==-1 && !fine) {
         cinquina = true;
-        document.getElementById("feedback").innerHTML = "CINQUINA!";
+        punti+=5;
+        document.getElementById("feedback").innerHTML = "CINQUINA!" + "<br>" + "Punti totali: " + punti;
         stessaRiga.push(`${k},${i}`);
+        for (let m=0; m<estratti.length; m++) {
+            estratti[m].style.backgroundColor="blue";
+        }
     }
     else if (counter2 == 15 && !tombola) {
         tombola = true;
-        document.getElementById("feedback").innerHTML = "TOMBOLA!";
+        punti+=6;
+        document.getElementById("feedback").innerHTML = "TOMBOLA!" + "<br>" + "Punti totali: " + punti;
         stessaRiga.push(`${k},${i}`);
         fine=true;
+        for (let r=0; r<3; r++) {
+            for (let c=0; c<5; c++) {
+                tabella[k][r][c].style.backgroundColor = "orange";
+            }
+        }
+
     }
     else {
     }
