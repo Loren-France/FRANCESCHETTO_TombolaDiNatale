@@ -4,15 +4,15 @@ body {
     text-align: center;
 }
 table {
+    border-spacing: none;
     padding: 0px auto;
     margin: 0px auto;
-    border: 2px solid black;
     border-collapse: collapse;
     text-align: center;
 }
 td {
-    padding: 0px auto;
-    margin: 0px auto;
+    padding: 0px;
+    margin: 0px;
     border-collapse: collapse;
     text-align: center;
 }

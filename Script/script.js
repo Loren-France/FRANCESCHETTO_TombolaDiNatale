@@ -5,10 +5,11 @@ let terna=false;
 let quaterna=false;
 let cinquina=false;
 let tombola=false;
+let fine=false;
 
 
 function Start() {
-    let griglia=document.getElementById("content");
+    let griglia=document.getElementById("tabella");
     griglia.innerHTML="";
 
     let output=document.getElementById("output");
@@ -94,6 +95,8 @@ function ControlloNumerico(tabella) {
     let feedback="";
     let number = document.getElementById("numero").value;
     let caratt;
+    let count=0;
+    let counter2=0;
 
     if (isNaN(number)) {
         feedback="feedback,inserire un numero valido della tombola, per favore reinserire";
@@ -102,12 +105,16 @@ function ControlloNumerico(tabella) {
     else{
         number=parseInt(number);
 
-        for (let i=0; i<9; i++) {
+        for (let k=0; k<6; k++) {
 
-        let count=0;
+            counter2=0;
+
+        for (let i=0; i<3; i++) {
+
+        count=0;
         flag=-1;
 
-        for (let j=0; j<10; j++) {
+        for (let j=0; j<5; j++) {
 
         caratt = document.getElementById(`cella-${k}-${i}-${j}`);
 
@@ -115,15 +122,18 @@ function ControlloNumerico(tabella) {
             caratt.style.backgroundColor = "red";
             caratt.style.color = "white";
         }
+        else{}
 
-        if (tabella[i][j].style.backgroundColor == "red") {
+        if (tabella[k][i][j].style.backgroundColor == "red") {
             count++;
+            counter2++;
         }
+        else{}
         }
 
-    for (let k=0; k<stessaRiga.length; k++) {
-        if (stessaRiga[k] == i) {
-            flag = i;
+    for (let l=0; l<stessaRiga.length; l++) {
+        if (stessaRiga[l] == `${k},${i}`) {
+            flag = 1;
             break;
         }
     }
@@ -131,29 +141,31 @@ function ControlloNumerico(tabella) {
     if (count == 2 && !ambo && flag==-1) {
         ambo = true;
         document.getElementById("feedback").innerHTML = "AMBO!";
-        stessaRiga.push(i);
+        stessaRiga.push(`${k},${i}`);
     }
     else if (count == 3 && !terna && flag==-1) {
         terna = true;
         document.getElementById("feedback").innerHTML = "TERNA!";
-        stessaRiga.push(i);
+        stessaRiga.push(`${k},${i}`);
     }
     else if (count == 4 && !quaterna && flag==-1) {
         quaterna = true;
         document.getElementById("feedback").innerHTML = "QUATERNA!";
-        stessaRiga.push(i);
+        stessaRiga.push(`${k},${i}`);
     }
-    else if (count == 5 && !cinquina && flag==-1) {
+    else if (count == 5 && !cinquina && flag==-1 && !fine) {
         cinquina = true;
         document.getElementById("feedback").innerHTML = "CINQUINA!";
-        stessaRiga.push(i);
+        stessaRiga.push(`${k},${i}`);
     }
-    else if (count == 10 && !tombola && flag==-1) {
+    else if (counter2 == 15 && !tombola) {
         tombola = true;
         document.getElementById("feedback").innerHTML = "TOMBOLA!";
-        stessaRiga.push(i);
+        stessaRiga.push(`${k},${i}`);
+        fine=true;
     }
     else {
+    }
     }
     }
     }
