@@ -1,4 +1,5 @@
 let stessaRiga=[];
+let estratti=[];
 let flag;
 let ambo=false;
 let terna=false;
@@ -94,6 +95,7 @@ function CreaInput(output, tabella) {
 
 function ControlloNumerico(tabella) {
     let feedback="";
+    let trovato;
     let number = document.getElementById("numero").value;
     let caratt;
     let count=0;
@@ -113,7 +115,7 @@ function ControlloNumerico(tabella) {
         for (let i=0; i<3; i++) {
 
 
-        let estratti=[];
+        let colore=[];
         count=0;
         flag=-1;
 
@@ -125,13 +127,22 @@ function ControlloNumerico(tabella) {
         if (number == parseInt(caratt.textContent)) {
             caratt.style.backgroundColor = "red";
             caratt.style.color = "white";
+            estratti.push(number);
         }
         else{}
 
-        if (tabella[k][i][j].style.backgroundColor == "red") {
+        trovato=false;
+
+        for (let n=0; n<estratti.length; n++) {
+            if (parseInt(caratt.textContent) == estratti[n]) {
+                trovato=true;
+                break;
+            }
+        }
+        if (trovato) {
             count++;
             counter2++;
-            estratti.push(tabella[k][i][j]);
+            colore.push(tabella[k][i][j]);
         }
         else{}
         }
@@ -148,8 +159,8 @@ function ControlloNumerico(tabella) {
         punti+=2;
         document.getElementById("feedback").innerHTML = "AMBO!" + "<br>" + "Punti totali: " + punti;
         stessaRiga.push(`${k},${i}`);
-        for (let m=0; m<estratti.length; m++) {
-            estratti[m].style.backgroundColor="green";
+        for (let m=0; m<colore.length; m++) {
+            colore[m].style.backgroundColor="green";
         }
     }
     else if (count == 3 && !terna && flag==-1) {
@@ -157,8 +168,8 @@ function ControlloNumerico(tabella) {
         punti+=3;
         document.getElementById("feedback").innerHTML = "TERNA!" + "<br>" + "Punti totali: " + punti;
         stessaRiga.push(`${k},${i}`);
-        for (let m=0; m<estratti.length; m++) {
-            estratti[m].style.backgroundColor="purple";
+        for (let m=0; m<colore.length; m++) {
+            colore[m].style.backgroundColor="purple";
         }
     }
     else if (count == 4 && !quaterna && flag==-1) {
@@ -166,8 +177,8 @@ function ControlloNumerico(tabella) {
         punti+=4;
         document.getElementById("feedback").innerHTML = "QUATERNA!" + "<br>" + "Punti totali: " + punti;
         stessaRiga.push(`${k},${i}`);
-        for (let m=0; m<estratti.length; m++) {
-            estratti[m].style.backgroundColor="yellow";
+        for (let m=0; m<colore.length; m++) {
+            colore[m].style.backgroundColor="brown";
         }
     }
     else if (count == 5 && !cinquina && flag==-1 && !fine) {
@@ -175,8 +186,8 @@ function ControlloNumerico(tabella) {
         punti+=5;
         document.getElementById("feedback").innerHTML = "CINQUINA!" + "<br>" + "Punti totali: " + punti;
         stessaRiga.push(`${k},${i}`);
-        for (let m=0; m<estratti.length; m++) {
-            estratti[m].style.backgroundColor="blue";
+        for (let m=0; m<colore.length; m++) {
+            colore[m].style.backgroundColor="blue";
         }
     }
     else if (counter2 == 15 && !tombola) {
